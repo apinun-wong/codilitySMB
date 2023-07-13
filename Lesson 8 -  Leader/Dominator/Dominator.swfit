@@ -1,0 +1,26 @@
+import Foundation
+import Glibc
+
+// you can write to stdout for debugging purposes, e.g.
+// print("this is a debug message")
+
+public func solution(_ A : inout [Int]) -> Int {
+    guard A.count >= 0 && A.count <= 100_000 else { return -1 }
+    var leader = -1
+    let candidateIndex = Int(round(Double(A.count) / 2.0))
+    let candidate = A[candidateIndex]
+    let sortNumbers = A.sorted()
+    var listOfLeaderIndex: [Int] = []
+    var count = 0
+    for (index, number) in A.enumerated() {
+        guard number >= -2147483648 && number <= 2147483647 else { continue }
+        if number == candidate {
+            count += 1
+            listOfLeaderIndex.append(index)
+        }
+    }
+    if count > Int(sortNumbers.count / 2) {
+        leader = listOfLeaderIndex.first ?? -1
+    }
+    return leader
+}
